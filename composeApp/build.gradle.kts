@@ -93,7 +93,7 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
         }
     }
     compileOptions {
@@ -114,8 +114,10 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.wannahave"
+            packageName = "Wanna Have"
             packageVersion = "1.0.0"
+            jvmArgs("-Dapple.awt.application.appearance=system")
+
             // TODO ICON
             // macOS {
             //     iconFile.set(project.file("icon.icns"))

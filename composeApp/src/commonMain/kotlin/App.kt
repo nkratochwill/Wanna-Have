@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -74,6 +76,14 @@ fun WannaHaveSearchBar() {
         modifier = Modifier.fillMaxWidth().padding(searchBarPadding),
         placeholder = { Text(text = "Running from ${getPlatform().name}", textAlign = TextAlign.Center) },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+        trailingIcon = {
+            if (isActive) {
+                IconButton(onClick = {
+                    isActive = false
+                    query = ""
+                }) { Icon(Icons.Default.Close, contentDescription = null) }
+            }
+        }
     ) {
 
     }
