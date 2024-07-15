@@ -16,9 +16,11 @@ import androidx.core.view.WindowCompat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // For correct statusBar color
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
 
+        // For correct navigationBar color
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             enableEdgeToEdge()
         } else {
