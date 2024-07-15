@@ -14,10 +14,8 @@ plugins {
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "composeApp"
         browser {
             commonWebpackConfig {
-                outputFileName = "composeApp.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
                         // Serve sources to debug inside browser
@@ -35,38 +33,41 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    
-    jvm("desktop")
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    jvm("desktop") // "desktop" needed for val desktopMain by getting
     
     sourceSets {
         val desktopMain by getting
         
         androidMain.dependencies {
+            // IMPLEMENTATION START
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            // IMPLEMENTATION END
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
+            // IMPLEMENTATION PROJECT START
+            implementation(projects.core.designsystem)
+            implementation(projects.shared)
+            // IMPLEMENTATION PROJECT END
+
+            // IMPLEMENTATION START
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.runtime)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(projects.shared)
+            // IMPLEMENTATION END
         }
         desktopMain.dependencies {
+            // IMPLEMENTATION START
             implementation(compose.desktop.currentOs)
+            // IMPLEMENTATION END
         }
     }
 }
@@ -86,10 +87,8 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    buildFeatures {
+        compose = true
     }
     buildTypes {
         getByName("release") {
@@ -100,11 +99,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    buildFeatures {
-        compose = true
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
     dependencies {
+        // DEBUGIMPLEMENTATION START
         debugImplementation(compose.uiTooling)
+        // DEBUGIMPLEMENTATION END
     }
 }
 
@@ -113,7 +116,7 @@ compose.desktop {
         mainClass = "MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "Wanna Have"
             packageVersion = "1.0.0"
             jvmArgs("-Dapple.awt.application.appearance=system")

@@ -31,3 +31,11 @@ dependencyResolutionManagement {
 include(":composeApp")
 include(":server")
 include(":shared")
+
+// Core START
+include(":core:designsystem")
+// Core END
+
+// Feature START
+// Feature END
+

@@ -1,7 +1,7 @@
 plugins {
+    application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
-    application
 }
 
 group = "org.wannahave"
@@ -12,10 +12,18 @@ application {
 }
 
 dependencies {
+    // IMPLEMENTATION PROJECT START
     implementation(projects.shared)
+    // IMPLEMENTATION PROJECT END
+
+    // IMPLEMENTATION START
     implementation(libs.logback)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
-    testImplementation(libs.ktor.server.tests)
+    // IMPLEMENTATION END
+
+    // TESTIMPLEMENTATION START
     testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.ktor.server.tests)
+    // TESTIMPLEMENTATION END
 }

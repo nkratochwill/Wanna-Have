@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             enableEdgeToEdge()
         } else {
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
             }
             enableEdgeToEdge(statusBarStyle = systemBarStyle, navigationBarStyle = systemBarStyle)
         }
+
         setContent {
             App()
         }
