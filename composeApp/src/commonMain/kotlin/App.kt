@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +52,7 @@ fun App() {
     val compactWindow = windowSize.widthSizeClass == WindowWidthSizeClass.Compact ||
             windowSize.widthSizeClass == WindowWidthSizeClass.Medium
     val expandedWindow = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
+
     WannaHaveTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             Scaffold(
@@ -62,7 +65,8 @@ fun App() {
                     ) {
                         WannaHaveBottomBar()
                     }
-                }) {
+                }
+            ) {
                 AnimatedVisibility(
                     visible = expandedWindow,
                     enter = fadeIn() + slideInHorizontally(),
@@ -83,15 +87,18 @@ fun WannaHaveBottomBar() {
         NavigationBarItem(
             selected = true,
             onClick = {},
-            icon = { Icon(Icons.Default.Home, contentDescription = null) })
+            icon = { Icon(Icons.Default.Home, contentDescription = null) }
+        )
         NavigationBarItem(
             selected = false,
             onClick = {},
-            icon = { Icon(Icons.Default.Add, contentDescription = null) })
+            icon = { Icon(Icons.Default.Add, contentDescription = null) }
+        )
         NavigationBarItem(
             selected = false,
             onClick = {},
-            icon = { Icon(Icons.Default.Person, contentDescription = null) })
+            icon = { Icon(Icons.Default.Person, contentDescription = null) }
+        )
     }
 }
 
@@ -101,15 +108,18 @@ fun WannaHaveNavigationRail() {
         NavigationRailItem(
             selected = true,
             onClick = {},
-            icon = { Icon(Icons.Default.Home, contentDescription = null) })
+            icon = { Icon(imageVector = Icons.Default.Home, contentDescription = null) }
+        )
         NavigationRailItem(
             selected = false,
             onClick = {},
-            icon = { Icon(Icons.Default.Add, contentDescription = null) })
+            icon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) }
+        )
         NavigationRailItem(
             selected = false,
             onClick = {},
-            icon = { Icon(Icons.Default.Person, contentDescription = null) })
+            icon = { Icon(imageVector = Icons.Default.Person, contentDescription = null) }
+        )
     }
 }
 
@@ -119,26 +129,48 @@ fun WannaHaveSearchBar() {
     var isActive by rememberSaveable { mutableStateOf(false) }
     // Needed for correct padding in Portrait Mode
     val searchBarPadding by animateDpAsState(targetValue = if (isActive) 0.dp else 16.dp)
+
     SearchBar(
         query = searchBarQuery,
         onQueryChange = { searchBarQuery = it },
-        onSearch = {},
+        onSearch = { },
         active = isActive,
         onActiveChange = { isActive = it },
         modifier = Modifier.fillMaxWidth().padding(searchBarPadding),
-        placeholder = {
-            Text(
-                text = "Running from ${getPlatform().name}",
-                textAlign = TextAlign.Center
-            )
-        },
-        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-        trailingIcon = {
+        placeholder = { Text(text = "Running from ${getPlatform().name}", textAlign = TextAlign.Center) },
+        leadingIcon = {
             if (isActive) {
-                IconButton(onClick = {
-                    isActive = false
-                    searchBarQuery = String()
-                }) { Icon(Icons.Default.Close, contentDescription = null) }
+                IconButton(
+                    onClick = { isActive = false }
+                ) {
+                    Icon(imageVector = Icons.AutoMirrored.Default.ArrowBack, contentDescription = null)
+                }
+            } else {
+                Icon(imageVector = Icons.Default.Search, contentDescription = null)
+            }
+        },
+        trailingIcon = {
+            AnimatedVisibility(
+                visible = searchBarQuery.isEmpty(),
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                IconButton(
+                    onClick = { }
+                ) {
+                    Icon(imageVector = Icons.Default.Mic, contentDescription = null)
+                }
+            }
+            AnimatedVisibility(
+                visible = searchBarQuery.isNotEmpty(),
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                IconButton(
+                    onClick = { searchBarQuery = String() }
+                ) {
+                    Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                }
             }
         }
     ) {
