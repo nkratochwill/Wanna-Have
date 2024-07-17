@@ -37,5 +37,6 @@ include(":core:designsystem")
 // Core END
 
 // Feature START
+include(":feature:search")
 // Feature END
 
