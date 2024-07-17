@@ -24,7 +24,7 @@ fun NavGraphBuilder.startScreen(onStart:() -> Unit){
     composable(route = START_ROUTE){
         Box(Modifier.fillMaxSize()){
             Button(onClick = onStart){
-                Text("Start Wanna Have")
+                Text(text = "Start Wanna Have")
             }
         }
     }
