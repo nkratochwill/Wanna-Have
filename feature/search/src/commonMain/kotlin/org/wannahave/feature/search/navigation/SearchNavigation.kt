@@ -8,12 +8,16 @@ import org.wannahave.feature.search.composables.SearchRoute
 const val SEARCH_ROUTE = "search_route"
 
 fun NavController.navigateToSearchScreen() {
-    this.navigate(SEARCH_ROUTE) {
-        launchSingleTop = true
+    if (this.currentDestination?.route !== SEARCH_ROUTE) {
+        this.navigate(SEARCH_ROUTE) {
+            launchSingleTop = true
+        }
     }
 }
-fun NavGraphBuilder.searchScreen(){
-    composable(route = SEARCH_ROUTE){
+
+fun NavGraphBuilder.searchScreen() {
+    composable(
+        route = SEARCH_ROUTE) {
         SearchRoute()
     }
 }

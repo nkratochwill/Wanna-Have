@@ -55,7 +55,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.wannahave.feature.search"
+    namespace = "org.wannahave.feature.sell"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21

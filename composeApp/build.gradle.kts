@@ -52,14 +52,15 @@ kotlin {
         commonMain.dependencies {
             // IMPLEMENTATION PROJECT START
             implementation(projects.core.designsystem)
+            implementation(projects.feature.profile)
             implementation(projects.feature.search)
+            implementation(projects.feature.sell)
             implementation(projects.shared)
             // IMPLEMENTATION PROJECT END
 
             // IMPLEMENTATION START
             implementation(compose.foundation)
             implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(compose.components.resources)
