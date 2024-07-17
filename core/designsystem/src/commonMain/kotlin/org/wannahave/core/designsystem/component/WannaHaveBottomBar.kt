@@ -12,8 +12,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun WannaHaveBottomBar(onSearchClick: ()-> Unit, onSellClick: ()-> Unit, onProfileClick: ()-> Unit) {
-    //containerColor = MaterialTheme.colorScheme.surfaceContainerHighest Needed for same color as Searchbar
-    NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceContainerHighest) {
+    NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceContainer) {
         NavigationBarItem(
             selected = true,
             onClick = onSearchClick,
