@@ -2,6 +2,7 @@
 
 package org.wannahave.feature.search.composables
 
+import String
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeIn
@@ -16,7 +17,9 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
@@ -46,7 +49,7 @@ fun SearchContent(){
 
 @Composable
 fun WannaHaveSearchBar() {
-    var searchBarQuery by rememberSaveable { mutableStateOf("") }
+    var searchBarQuery by rememberSaveable { mutableStateOf(String()) }
     var isActive by rememberSaveable { mutableStateOf(false) }
     // Needed for correct padding in Portrait Mode
     val searchBarPadding by animateDpAsState(targetValue = if (isActive) 0.dp else 16.dp)
@@ -58,6 +61,7 @@ fun WannaHaveSearchBar() {
         active = isActive,
         onActiveChange = { isActive = it },
         modifier = Modifier.fillMaxWidth().padding(searchBarPadding),
+        colors = SearchBarDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         placeholder = { Text(text = "Running from ${getPlatform().name}", textAlign = TextAlign.Center) },
         leadingIcon = {
             if (isActive) {
@@ -88,7 +92,7 @@ fun WannaHaveSearchBar() {
                 exit = fadeOut()
             ) {
                 IconButton(
-                    onClick = { searchBarQuery = "" }
+                    onClick = { searchBarQuery = String() }
                 ) {
                     Icon(imageVector = Icons.Default.Close, contentDescription = null)
                 }

@@ -26,7 +26,19 @@ kotlin {
         }
         binaries.executable()
     }
-    
+    js(IR) {
+        browser {
+            commonWebpackConfig {
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        // Serve sources to debug inside browser
+                        add(project.projectDir.path)
+                    }
+                }
+            }
+        }
+        binaries.executable()
+    }
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -125,12 +137,12 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
             packageName = "Wanna Have"
             packageVersion = "1.0.0"
-            jvmArgs("-Dapple.awt.application.appearance=system")
 
             // TODO ICON
-            // macOS {
-            //     iconFile.set(project.file("icon.icns"))
-            // }
+            macOS {
+                //iconFile.set(project.file("icon.icns"))
+                jvmArgs("-Dapple.awt.application.appearance=system")
+            }
             // windows {
             //     iconFile.set(project.file("icon.ico"))
             // }
