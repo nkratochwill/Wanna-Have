@@ -52,6 +52,7 @@ kotlin {
         commonMain.dependencies {
             // IMPLEMENTATION PROJECT START
             implementation(projects.core.designsystem)
+            implementation(projects.feature.search)
             implementation(projects.shared)
             // IMPLEMENTATION PROJECT END
 
@@ -64,6 +65,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.material3.windowSizeClass.multiplatform)
+            implementation(libs.androidx.navigation)
             // IMPLEMENTATION END
         }
         desktopMain.dependencies {
