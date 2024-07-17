@@ -10,6 +10,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -55,7 +56,7 @@ fun App() {
                     }
                 }
             ) {
-                Row {
+                Row(modifier = Modifier.padding(it)) {
                     AnimatedVisibility(
                         visible = expandedWindow,
                         enter = fadeIn() + slideInHorizontally(),
