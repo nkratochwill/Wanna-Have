@@ -13,16 +13,16 @@ import androidx.navigation.compose.composable
 const val START_ROUTE = "start_route"
 
 fun NavController.navigateToStartScreen() {
-    this.navigate(START_ROUTE) {
+    this.navigate(route = START_ROUTE) {
         launchSingleTop = true
-        popUpTo(this@navigateToStartScreen.graph.findStartDestination().id) {
+        popUpTo(id = this@navigateToStartScreen.graph.findStartDestination().id) {
             saveState = false
         }
     }
 }
 fun NavGraphBuilder.startScreen(onStart:() -> Unit){
     composable(route = START_ROUTE){
-        Box(Modifier.fillMaxSize()){
+        Box(modifier = Modifier.fillMaxSize()){
             Button(onClick = onStart){
                 Text(text = "Start Wanna Have")
             }
