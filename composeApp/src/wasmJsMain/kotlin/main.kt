@@ -4,7 +4,7 @@ import kotlinx.browser.document
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(document.body!!) {
+    ComposeViewport(viewportContainer = document.body!!) {
         App()
     }
 }

@@ -9,7 +9,7 @@ const val SELL_ROUTE = "sell_route"
 
 fun NavController.navigateToSellScreen() {
     if (this.currentDestination?.route !== SELL_ROUTE) {
-        this.navigate(SELL_ROUTE) {
+        this.navigate(route = SELL_ROUTE) {
             launchSingleTop = true
         }
     }

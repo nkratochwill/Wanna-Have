@@ -9,7 +9,7 @@ const val SEARCH_ROUTE = "search_route"
 
 fun NavController.navigateToSearchScreen() {
     if (this.currentDestination?.route !== SEARCH_ROUTE) {
-        this.navigate(SEARCH_ROUTE) {
+        this.navigate(route = SEARCH_ROUTE) {
             launchSingleTop = true
         }
     }

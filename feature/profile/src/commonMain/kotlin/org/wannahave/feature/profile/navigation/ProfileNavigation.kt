@@ -9,7 +9,7 @@ const val PROFILE_ROUTE = "profile_route"
 
 fun NavController.navigateToProfileScreen() {
     if (this.currentDestination?.route !== PROFILE_ROUTE) {
-        this.navigate(PROFILE_ROUTE) {
+        this.navigate(route = PROFILE_ROUTE) {
             launchSingleTop = true
         }
     }
