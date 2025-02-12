@@ -16,24 +16,11 @@ import androidx.core.view.WindowCompat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        // Needed for correct navigationBar color
+        enableAdaptableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         // Needed for correct statusBar color
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        super.onCreate(savedInstanceState)
-
-        // Needed for correct navigationBar color
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            enableEdgeToEdge()
-        } else {
-            val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-            val systemBarStyle = when (currentNightMode) {
-                Configuration.UI_MODE_NIGHT_NO -> SystemBarStyle.light(Color.Transparent.toArgb(), Color.Transparent.toArgb())
-                Configuration.UI_MODE_NIGHT_YES -> SystemBarStyle.dark(Color.Transparent.toArgb())
-                else -> error("Illegal State, current mode is $currentNightMode")
-            }
-            enableEdgeToEdge(statusBarStyle = systemBarStyle, navigationBarStyle = systemBarStyle)
-        }
-
         setContent {
             App()
         }
@@ -44,4 +31,22 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     App()
+}
+
+private fun MainActivity.enableAdaptableEdgeToEdge() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        enableEdgeToEdge()
+    } else {
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val systemBarStyle = when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> SystemBarStyle.light(
+                Color.Transparent.toArgb(),
+                Color.Transparent.toArgb()
+            )
+
+            Configuration.UI_MODE_NIGHT_YES -> SystemBarStyle.dark(Color.Transparent.toArgb())
+            else -> error("Illegal State, current mode is $currentNightMode")
+        }
+        enableEdgeToEdge(statusBarStyle = systemBarStyle, navigationBarStyle = systemBarStyle)
+    }
 }

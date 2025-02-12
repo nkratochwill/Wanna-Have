@@ -7,8 +7,11 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -43,62 +46,76 @@ fun SearchScreen() {
 }
 
 @Composable
-fun SearchContent(){
+fun SearchContent() {
     WannaHaveSearchBar()
 }
 
 @Composable
 fun WannaHaveSearchBar() {
     var searchBarQuery by rememberSaveable { mutableStateOf(String()) }
-    var isActive by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by rememberSaveable { mutableStateOf(false) }
     // Needed for correct padding in Portrait Mode
-    val searchBarPadding by animateDpAsState(targetValue = if (isActive) 0.dp else 16.dp)
+    val searchBarPadding by animateDpAsState(targetValue = if (isExpanded) 0.dp else 16.dp)
 
     SearchBar(
-        query = searchBarQuery,
-        onQueryChange = { searchBarQuery = it },
-        onSearch = { },
-        active = isActive,
-        onActiveChange = { isActive = it },
+        inputField = {
+            SearchBarDefaults.InputField(
+                query = searchBarQuery,
+                onQueryChange = { searchBarQuery = it },
+                expanded = isExpanded,
+                onExpandedChange = { isExpanded = it },
+                onSearch = { },
+                placeholder = {
+                    Text(
+                        text = "Running from ${getPlatform().name}",
+                        textAlign = TextAlign.Center
+                    )
+                },
+                leadingIcon = {
+                    if (isExpanded) {
+                        IconButton(
+                            onClick = { isExpanded = false }
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = null
+                            )
+                        }
+                    } else {
+                        Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                    }
+                },
+                trailingIcon = {
+                    AnimatedVisibility(
+                        visible = searchBarQuery.isEmpty(),
+                        enter = fadeIn(),
+                        exit = fadeOut()
+                    ) {
+                        IconButton(
+                            onClick = { }
+                        ) {
+                            Icon(imageVector = Icons.Default.Mic, contentDescription = null)
+                        }
+                    }
+                    AnimatedVisibility(
+                        visible = searchBarQuery.isNotEmpty(),
+                        enter = fadeIn(),
+                        exit = fadeOut()
+                    ) {
+                        IconButton(
+                            onClick = { searchBarQuery = String() }
+                        ) {
+                            Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                        }
+                    }
+                },
+            )
+        },
+        expanded = isExpanded,
+        onExpandedChange = { isExpanded = it },
         modifier = Modifier.fillMaxWidth().padding(searchBarPadding),
         colors = SearchBarDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-        placeholder = { Text(text = "Running from ${getPlatform().name}", textAlign = TextAlign.Center) },
-        leadingIcon = {
-            if (isActive) {
-                IconButton(
-                    onClick = { isActive = false }
-                ) {
-                    Icon(imageVector = Icons.AutoMirrored.Default.ArrowBack, contentDescription = null)
-                }
-            } else {
-                Icon(imageVector = Icons.Default.Search, contentDescription = null)
-            }
-        },
-        trailingIcon = {
-            AnimatedVisibility(
-                visible = searchBarQuery.isEmpty(),
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
-                IconButton(
-                    onClick = { }
-                ) {
-                    Icon(imageVector = Icons.Default.Mic, contentDescription = null)
-                }
-            }
-            AnimatedVisibility(
-                visible = searchBarQuery.isNotEmpty(),
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
-                IconButton(
-                    onClick = { searchBarQuery = String() }
-                ) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                }
-            }
-        }
     ) {
-
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) { }
     }
 }
