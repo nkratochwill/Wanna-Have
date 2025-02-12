@@ -46,9 +46,16 @@ kotlin {
         }
     }
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
 
     jvm("desktop") // "desktop" needed for val desktopMain by getting
     
@@ -58,7 +65,6 @@ kotlin {
         androidMain.dependencies {
             // IMPLEMENTATION START
             implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
             // IMPLEMENTATION END
         }
         commonMain.dependencies {
