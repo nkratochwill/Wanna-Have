@@ -17,5 +17,8 @@ fun Application.module() {
         get("/") {
             call.respondText("Ktor: ${getPlatform()}")
         }
+        get("/products") {
+            call.respondText("Ktor: products!")
+        }
     }
 }
