@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WannaHaveNavigationRail(onSearchClick: ()-> Unit, onSellClick: ()-> Unit, onProfileClick: ()-> Unit) {
     //Shouldn't exist, Material 3 Navigationrail/Searchbar/Navigationbar is wrongly colored, it should be all the same containercolor
-    NavigationRail(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh) {
+    NavigationRail(containerColor = MaterialTheme.colorScheme.surfaceContainer) {
         Spacer(modifier = Modifier.height(16.dp))
         NavigationRailItem(
             selected = true,

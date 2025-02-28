@@ -1,6 +1,5 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -37,7 +36,6 @@ kotlin {
         }
     }
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
         }
@@ -53,13 +51,33 @@ kotlin {
         commonMain.dependencies {
             // IMPLEMENTATION PROJECT START
             implementation(projects.core.designsystem)
+            implementation(projects.core.model)
             implementation(projects.shared)
             // IMPLEMENTATION PROJECT END
             // IMPLEMENTATION START
+            implementation(compose.foundation)
+            implementation(compose.ui)
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
-            implementation(libs.androidx.material3.windowSizeClass.multiplatform)
             implementation(libs.androidx.navigation)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
+            implementation(libs.kotlinx.datetime)
+            // IMPLEMENTATION END
+        }
+        androidMain.dependencies {
+            // IMPLEMENTATION START
+            implementation(libs.ktor.client.android)
+            // IMPLEMENTATION END
+        }
+        appleMain.dependencies {
+            // IMPLEMENTATION START
+            implementation(libs.ktor.client.darwin)
+            // IMPLEMENTATION END
+        }
+        jvmMain.dependencies {
+            // IMPLEMENTATION START
+            implementation(libs.ktor.client.java)
             // IMPLEMENTATION END
         }
     }
@@ -69,8 +87,8 @@ android {
     namespace = "org.wannahave.feature.search"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

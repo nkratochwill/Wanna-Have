@@ -15,7 +15,7 @@ const val START_ROUTE = "start_route"
 fun NavController.navigateToStartScreen() {
     this.navigate(route = START_ROUTE) {
         launchSingleTop = true
-        popUpTo(id = this@navigateToStartScreen.graph.findStartDestination().id) {
+        popUpTo(route = this@navigateToStartScreen.graph.findStartDestination().route.orEmpty()) {
             saveState = false
         }
     }
