@@ -17,13 +17,12 @@ dependencies {
     // IMPLEMENTATION PROJECT END
 
     // IMPLEMENTATION START
-    implementation(libs.logback)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
+    implementation(libs.logback)
     // IMPLEMENTATION END
 
     // TESTIMPLEMENTATION START
     testImplementation(libs.kotlin.test.junit)
-    testImplementation(libs.ktor.server.tests)
     // TESTIMPLEMENTATION END
 }

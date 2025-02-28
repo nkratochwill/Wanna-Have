@@ -49,21 +49,16 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // IMPLEMENTATION PROJECT START
-            implementation(projects.core.designsystem)
-            implementation(projects.shared)
-            // IMPLEMENTATION PROJECT END
             // IMPLEMENTATION START
             implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(libs.androidx.navigation)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
             // IMPLEMENTATION END
         }
     }
 }
 
 android {
-    namespace = "org.wannahave.feature.profile"
+    namespace = "org.wannahave.core.model"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())

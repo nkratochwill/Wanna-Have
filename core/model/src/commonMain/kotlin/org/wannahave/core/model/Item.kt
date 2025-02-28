@@ -1,50 +1,9 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+package org.wannahave.core.model
 
-package org.wannahave.feature.search.composables
-
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import kotlinx.datetime.Clock
-import org.wannahave.core.designsystem.component.LocalWannaHaveScaffoldPaddingValues
 import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-
-@Composable
-fun SearchRoute() {
-    SearchScreen()
-}
-
-@Composable
-fun SearchScreen() {
-    SearchContent()
-}
-
-@Composable
-fun SearchContent() {
-    WannaHaveSearchBar()
-    Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .padding(LocalWannaHaveScaffoldPaddingValues.current)
-    ) {
-        Spacer(modifier = Modifier.height(64.dp))
-        ItemSection("Movies", Item.generateSampleItems(10))
-        ItemSection("TV Shows", Item.generateSampleItems(10))
-        ItemSection("Completed", Item.generateSampleItems(10))
-    }
-}
-
-//https://hazelcast.com/blog/locksupport-parknanos-under-the-hood-and-the-curious-case-of-parking-part-ii-windows/
-
 
 data class Item(
     // Core Identity
@@ -74,7 +33,6 @@ data class Item(
         require(currentProgress in 0.0f..1.0f) { "current progress must be between 0.0 and 1.0" }
         require(duration >= 0) { "duration must be at least 0" }
     }
-
     companion object {
         @OptIn(ExperimentalUuidApi::class)
         fun generateSampleItem(id: String = Uuid.random().toString()): Item {

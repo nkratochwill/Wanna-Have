@@ -34,6 +34,7 @@ include(":shared")
 
 // Core START
 include(":core:designsystem")
+include(":core:model")
 // Core END
 
 // Feature START

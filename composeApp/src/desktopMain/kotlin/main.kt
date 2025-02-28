@@ -3,7 +3,7 @@ import androidx.compose.ui.window.application
 import java.awt.Dimension
 
 fun main() = application {
-    System.setProperty("apple.awt.application.name", "MyApp");
+    System.setProperty("apple.awt.application.name", "Wanna Have")
     Window(
         onCloseRequest = ::exitApplication,
         title = "Wanna Have",

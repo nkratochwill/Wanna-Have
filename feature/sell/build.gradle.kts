@@ -1,6 +1,5 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -37,7 +36,6 @@ kotlin {
         }
     }
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
         }
@@ -58,7 +56,6 @@ kotlin {
             // IMPLEMENTATION START
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
-            implementation(libs.androidx.material3.windowSizeClass.multiplatform)
             implementation(libs.androidx.navigation)
             // IMPLEMENTATION END
         }
@@ -69,8 +66,8 @@ android {
     namespace = "org.wannahave.feature.sell"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get().toInt())
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
