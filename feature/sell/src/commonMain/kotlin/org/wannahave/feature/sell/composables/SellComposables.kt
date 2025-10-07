@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import org.wannahave.core.designsystem.component.LocalWannaHaveScaffoldPaddingValues
 import org.wannahave.core.designsystem.component.moveFocusOnTab
 
 @Composable
@@ -47,7 +48,7 @@ fun SellContent() {
     var descriptionTextValue by rememberSaveable { mutableStateOf(String()) }
     Column(
         modifier = Modifier.fillMaxWidth()
-            //.padding(LocalWannaHaveScaffoldPaddingValues.current)
+            .padding(LocalWannaHaveScaffoldPaddingValues.current)
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally

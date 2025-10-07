@@ -2,20 +2,20 @@
 
 #Projectwide
 android-minSdk = "21"
-android-targetSdk = "35"
-android-compileSdk = "35"
+android-targetSdk = "36"
+android-compileSdk = "36"
 
 #Plugins
-android-gradle-plugin = "8.10.1"
-compose-plugin = "1.8.1"
-kotlin = "2.1.21"
-kotlinx-datetime = "0.6.2"
-ktor = "3.2.0"
+android-gradle-plugin = "8.13.0"
+compose-plugin = "1.9.1"
+kotlin = "2.2.20"
+kotlinx-datetime = "0.7.1"
+ktor = "3.3.0"
 
 
 #A
 androidx-material3-windowSizeClass-multiplatform = "0.5.0"
-androidx-navigation = "2.8.0-alpha13"
+androidx-navigation = "2.9.1"
 
 #B
 
@@ -39,7 +39,7 @@ java = "21"
 #K
 
 #L
-logback = "1.5.18"
+logback = "1.5.20"
 
 #M
 

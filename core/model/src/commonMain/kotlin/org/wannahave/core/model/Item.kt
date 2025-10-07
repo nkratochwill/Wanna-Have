@@ -1,7 +1,7 @@
 package org.wannahave.core.model
 
-import kotlinx.datetime.Clock
 import kotlin.random.Random
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -34,10 +34,10 @@ data class Item(
         require(duration >= 0) { "duration must be at least 0" }
     }
     companion object {
-        @OptIn(ExperimentalUuidApi::class)
+        @OptIn(ExperimentalUuidApi::class, ExperimentalTime::class)
         fun generateSampleItem(id: String = Uuid.random().toString()): Item {
             val random = Random.Default
-            val now = Clock.System.now()
+            val now = kotlin.time.Clock.System.now()
             val createdAt = now.minus(kotlin.time.Duration.parse("${random.nextLong(0, 1)}ms"))
                 .toEpochMilliseconds()
             val duration = random.nextLong(3600000, 10800000)//from 1 hour to 3

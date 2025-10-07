@@ -30,3 +30,4 @@ SKIE
 KMPBridge
 CrashKIOS
 Sqldelight
+https://flutterweb-wasm.web.app
